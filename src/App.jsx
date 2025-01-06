@@ -3,13 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Page from './pages/dashboard'
+import LoginPage from './pages/login'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-     <Page/>
+     <LoginPage/>
     </>
   )
 }
