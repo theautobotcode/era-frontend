@@ -3,23 +3,30 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import React , { useState , useEffect} from "react"
+import ConstantsData from "../handler/constants";
 import axios from "axios"
-import { data } from "autoprefixer"
 export function LoginForm({
   className,
   ...props
 }) {
 
-    function login(){
-        useEffect(()=>{
-            axios.post(ConstantsData.loginapi, data={}).then((response) =>{
-                console.log(response.data)
-            })
-        }
-    )
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+    function login(e){
+      e.preventDefault();
+      
+      
+      // const {name , value} = e.target;
+      // setFormValues({...formValues, [name]:value})
+      // console.log(formValues)
+      axios.post(ConstantsData.loginapi, {"email":email, "password":password}).then((response) =>{
+        console.log(response.data)
+    })
+      
     }
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={login}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -32,7 +39,7 @@ export function LoginForm({
           <Label htmlFor="email" >Email</Label>
           </div>
 
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input id="email" name="email" onChange={(value)=>setEmail(value.target.value)} type="email" placeholder="m@example.com"  required  />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
@@ -44,7 +51,7 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" name="password" onChange={(value)=>setPassword(value.target.value)} type="password" required />
         </div>
         <Button type="submit" className="w-full">
           Login
